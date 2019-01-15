@@ -12,7 +12,8 @@
 #' Computes net worth at the beginning of the day before any transactions have occurred.
 #' 
 #' @param file Filename for a ledger, hledger, or beancount file.
-#' @param date Vector of dates to compute net worth for.
+#' @param date Vector of dates to compute net worth for.  
+#'      For each only the transactions (and price statements) before that date are used in the net worth calculation.
 #' @param include Character vector of regular expressions of accounts to include in the net worth calculation.  
 #'      Use \code{".*"} to include everything.
 #' @param exclude Character vector of regular expressions of accounts to exclude from the net worth calculation.  
@@ -22,7 +23,7 @@
 #' @param toolchain Toolchain used to read in register. 
 #'     Either "ledger", "hledger", "bean-report_ledger", or "bean-report_hledger".
 #' @param ignore_case logical value of whether to ignore case in regular expressions or not.
-#' @return  \code{net_worth} returns a data frame
+#' @return  \code{net_worth} returns a tibble
 #' @examples
 #'    \dontrun{
 #'      example_beancount_file <- system.file("extdata", "example.beancount", package = "ledger") 
@@ -32,7 +33,7 @@
 #' @export
 net_worth <- function(file, date=Sys.Date()+1, include = c("^asset","^liabilit","^<revalued>"), exclude=NULL,
                       flags="-V", toolchain = default_toolchain(file), ignore_case=TRUE) {
-    df <- dplyr::bind_rows(lapply(date, .net_worth_helper, 
+    df <- bind_rows(lapply(date, .net_worth_helper, 
                                   file, include, exclude, flags, toolchain, ignore_case))
     for (name in names(df)) {
         if (! name %in% c("commodity", "date"))
@@ -41,25 +42,34 @@ net_worth <- function(file, date=Sys.Date()+1, include = c("^asset","^liabilit",
     df
 }
 
+#' @importFrom dplyr filter
+#' @importFrom dplyr group_by
+#' @importFrom dplyr left_join
+#' @importFrom dplyr summarize
 #' @importFrom tidyr spread
+#' @importFrom tidyselect one_of
 .net_worth_helper <- function(date, file, include, exclude, flags, toolchain, ignore_case) {
-    flags <- c(flags, paste0("--end=", date))
-    df <- register(file, flags, toolchain)
+    df <- switch(toolchain,
+                 ledger = register_ledger(file, flags, date),
+                 hledger = register_hledger(file, flags=flags, date=date, add_mark=FALSE, add_cost=FALSE, add_value=FALSE),
+                 beancount = mutate(register_beancount(file, date),
+                                       amount = .data$market_value, commodity = .data$mv_commodity),
+                 register(file, flags=flags, date=date, toolchain=toolchain)) # deprecated toolchains
     include <- paste(include, collapse="|")
-    df <- dplyr::filter(df, grepl(include, .data$account, ignore.case=ignore_case))
+    df <- filter(df, grepl(include, .data$account, ignore.case=ignore_case))
     if (!is.null(exclude)) {
         exclude <- paste(exclude, collapse="|")
-        df <- dplyr::filter(df, !grepl(exclude, .data$account, ignore.case=ignore_case))
+        df <- filter(df, !grepl(exclude, .data$account, ignore.case=ignore_case))
     }
-    df <- dplyr::filter(df, grepl(include, .data$account, ignore.case=ignore_case))
-    df <- dplyr::mutate(df, account = tolower(gsub("^([[:alnum:]]*)?:.*", "\\1", .data$account)))
-    df <- dplyr::mutate(df, account = gsub("<revalued>", "revalued", .data$account))
+    df <- filter(df, grepl(include, .data$account, ignore.case=ignore_case))
+    df <- mutate(df, account = tolower(gsub("^([[:alnum:]]*)?:.*", "\\1", .data$account)))
+    df <- mutate(df, account = gsub("<revalued>", "revalued", .data$account))
     df_by <- summarize(group_by(df, .data$account, .data$commodity), total = sum(.data$amount))
-    df_by <- spread(df_by, .data$account, .data$total)
+    df_by <- tidyr::spread(df_by, .data$account, .data$total)
     old_names <- names(df_by)
     df_nw <- summarize(group_by(df, .data$commodity), net_worth = sum(.data$amount))
     df_nw <- left_join(df_by, df_nw, by="commodity")
-    df_nw$date <- as.Date(date)
-    df_nw <- dplyr::select(df_nw, "date", "commodity", "net_worth", one_of(old_names))
+    df_nw <- mutate(df_nw, date=as.Date(date))
+    df_nw <- select(df_nw, "date", "commodity", "net_worth", tidyselect::one_of(old_names))
     df_nw
 }

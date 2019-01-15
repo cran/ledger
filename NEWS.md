@@ -1,3 +1,33 @@
+ledger 2.0.0
+============
+
+Breaking changes
+----------------
+
+* Now ``register`` returns a ``tibble`` instead of a ``data.frame`` and by default
+  reads in ``beancount`` files using the output from ``bean-query`` 
+  instead of ``bean-report`` followed up by ``hledger``.  
+  Most users of the ``ledger`` R package won't need to change any code.
+
+New functions
+-------------
+
+* Now has ``prune_coa`` and ``prune_coa_string`` functions to help simplify plaintext accounting "Chart of Accounts" names to a given maximum depth.
+* Lower level ``register_beancount``, ``register_ledger``, and ``register_hledger`` functions are now exported (and documented).
+
+Minor improvements and fixes
+----------------------------
+
+* ``register`` now has an ``date`` argument than can be used to exclude transactions 
+  (and implicitly price statements) before that date.
+* ``register`` now preserves transaction comments when importing ledger files (#16).  Thanks Jenya Sovetkin for patch.
+* ``register`` now preserves tags when importing beancount files.
+
+ledger 1.0.1
+============
+
+* Initial release on CRAN.
+
 ledger 0.8.0
 ============
 
