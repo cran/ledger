@@ -1,13 +1,18 @@
+ledger 2.0.1
+============
+
+* For ``ledger`` files ``register`` no longer filters out transactions with amount equal to zero (#13).
+
 ledger 2.0.0
 ============
 
 Breaking changes
 ----------------
 
-* Now ``register`` returns a ``tibble`` instead of a ``data.frame`` and by default
-  reads in ``beancount`` files using the output from ``bean-query`` 
-  instead of ``bean-report`` followed up by ``hledger``.  
-  Most users of the ``ledger`` R package won't need to change any code.
+* Now ``register`` returns a ``tibble`` instead of a ``data.frame``.
+* By default now reads in ``beancount`` files using the output from ``bean-query`` 
+  instead of ``bean-report`` followed up by ``hledger``.
+* Most users of the ``ledger`` R package won't need to change any code.
 
 New functions
 -------------
@@ -18,7 +23,7 @@ New functions
 Minor improvements and fixes
 ----------------------------
 
-* ``register`` now has an ``date`` argument than can be used to exclude transactions 
+* ``register`` now has a ``date`` argument than can be used to exclude transactions 
   (and implicitly price statements) before that date.
 * ``register`` now preserves transaction comments when importing ledger files (#16).  Thanks Jenya Sovetkin for patch.
 * ``register`` now preserves tags when importing beancount files.

@@ -1,11 +1,11 @@
-4c649e9aeec5ec046ac0d0af635b33c3 *DESCRIPTION
+0c97f90bae9f0ab1a0bd7c359e161f4e *DESCRIPTION
 7b7504b6cc02ad072d709f7025d9a396 *LICENSE
 ade4aa0456c7c6945014bba5dab621b1 *NAMESPACE
-2933f5b32f133e51760e8fd5c7b0ea8a *NEWS.md
+381473be190ee7dbe077445c778c14ef *NEWS.md
 9c41902d0ed02437630b3c75af6e12f0 *R/net_worth.r
 654e11dd0b6d86a77765118559db05e8 *R/prune_coa.r
-eb9d26a4d80c356e41df38401d258d7f *R/register.r
-00d4a45a5ee9c872033d1cd77a2b5e63 *README.md
+7262dede2bc06e0b641e2be3ad637c35 *R/register.r
+c3ea743a8929dbc30e0feab3d6dad821 *README.md
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.beancount
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.hledger
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.ledger
