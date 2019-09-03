@@ -1,11 +1,11 @@
-0c97f90bae9f0ab1a0bd7c359e161f4e *DESCRIPTION
+85bdea3c0bf89801882ae575c388a901 *DESCRIPTION
 7b7504b6cc02ad072d709f7025d9a396 *LICENSE
 ade4aa0456c7c6945014bba5dab621b1 *NAMESPACE
 381473be190ee7dbe077445c778c14ef *NEWS.md
 9c41902d0ed02437630b3c75af6e12f0 *R/net_worth.r
 654e11dd0b6d86a77765118559db05e8 *R/prune_coa.r
 7262dede2bc06e0b641e2be3ad637c35 *R/register.r
-c3ea743a8929dbc30e0feab3d6dad821 *README.md
+e14787a8869a02961865d70cdbc7547d *README.md
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.beancount
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.hledger
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.ledger
@@ -13,6 +13,8 @@ d41d8cd98f00b204e9800998ecf8427e *inst/extdata/empty.ledger
 3ec52b2b10bd5b87f7f2e7515a19f9f2 *inst/extdata/example.hledger
 9af202586615f37a3c2679451d664be0 *inst/extdata/example.ledger
 2febe7d97fb5eef6eeb0de9159f12e50 *man/default_toolchain.Rd
+a3511e7551c33450a81e8318a52b6a30 *man/figures/README-income_chart-1.png
+6fab9bd562c509aaf84eb64bd9ebbee1 *man/figures/README-net_worth_chart-1.png
 d4dcbd8db642df7071ff8233bee354ed *man/net_worth.Rd
 9abda1880fda43f20d24e8c691902af1 *man/prune_coa.Rd
 8c1af11f0b8cec4a21fc3a9331a38064 *man/register.Rd
