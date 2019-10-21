@@ -1,7 +1,7 @@
 Package: ledger
 Type: Package
 Title: Utilities for Importing Data from Plain Text Accounting Files
-Version: 2.0.2
+Version: 2.0.4
 Authors@R: c(person("Trevor L", "Davis", role = c("aut", "cre"), email="trevor.l.davis@gmail.com"),
     person("Jenya", "Sovetkin", email = "e.sovetkin@gmail.com", role="ctb"))
 URL: https://github.com/trevorld/r-ledger
@@ -16,9 +16,9 @@ License: MIT + file LICENSE
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2019-09-03 05:22:03 UTC; trevorld
+Packaged: 2019-10-21 00:54:18 UTC; trevorld
 Author: Trevor L Davis [aut, cre],
   Jenya Sovetkin [ctb]
 Maintainer: Trevor L Davis <trevor.l.davis@gmail.com>
 Repository: CRAN
-Date/Publication: 2019-09-03 05:50:02 UTC
+Date/Publication: 2019-10-21 04:50:02 UTC

@@ -1,4 +1,12 @@
-ledger 2.0.1
+ledger 2.0.4
+============
+
+* For ``beancount`` files read in with ``register_beancount`` with the end ``date`` argument set
+  we no longer use any price directives on the end date to determine market value 
+  but only those strictly before the end date.
+  This matches the filtering of transactions and the new ``hledger`` market value behavior.
+
+ledger 2.0.2
 ============
 
 * For ``ledger`` files ``register`` no longer filters out transactions with amount equal to zero (#13).
